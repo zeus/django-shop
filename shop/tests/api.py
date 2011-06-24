@@ -1,4 +1,5 @@
-from shop.models.ordermodel import OrderExtraInfo, Order
+from shop.util.order import OrderModel as Order
+from shop.models.ordermodel import OrderExtraInfo
 from django.test.testcases import TestCase
 from django.contrib.auth.models import User
 from shop.tests.util import Mock

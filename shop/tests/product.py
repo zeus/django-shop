@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from decimal import Decimal
 from shop.models.productmodel import Product
-from shop.models.ordermodel import Order, OrderItem
+from shop.util.order import OrderModel as Order
+from shop.models.ordermodel import OrderItem
 from django.test.testcases import TestCase
 
 class ProductTestCase(TestCase):

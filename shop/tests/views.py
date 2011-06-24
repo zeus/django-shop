@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django.test.testcases import TestCase
 from shop.models.cartmodel import Cart, CartItem
-from shop.models.ordermodel import Order
+from shop.util.order import OrderModel as Order
 from shop.models.productmodel import Product
 from shop.tests.util import Mock
 from shop.views.cart import CartDetails

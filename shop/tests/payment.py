@@ -6,7 +6,8 @@ from django.core.exceptions import ImproperlyConfigured
 from django.test.testcases import TestCase
 from shop.backends_pool import backends_pool
 from shop.addressmodel.models import Address, Country
-from shop.models.ordermodel import Order, OrderItem, ExtraOrderItemPriceField, \
+from shop.util.order import OrderModel as Order
+from shop.models.ordermodel import OrderItem, ExtraOrderItemPriceField, \
     ExtraOrderPriceField
 from shop.payment.backends.pay_on_delivery import PayOnDeliveryBackend
 from shop.payment.api import PaymentAPI

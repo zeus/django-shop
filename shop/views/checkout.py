@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.forms import models as model_forms
 from django.http import HttpResponseRedirect
 from shop.forms import BillingShippingForm
-from shop.models.ordermodel import Order
+from shop.util.order import OrderModel as Order
 from shop.order_signals import completed
 from shop.util.address import AddressModel, get_shipping_address_from_request, \
     assign_address_to_request, get_billing_address_from_request, \
@@ -140,35 +140,10 @@ class CheckoutSelectionView(ShopTemplateView):
         Provided for extensibility.
         Adds both addresses (shipping and billing addresses to the Order object.
         """
-        kwargs = {
-                  'shipping_address':shipping_address.address,
-                  'shipping_city':shipping_address.city,
-                  'shipping_zip_code':shipping_address.zip_code,
-                  'shipping_state':shipping_address.state,
-                  'shipping_country':shipping_address.country,
-                  'shipping_name':shipping_address.name,
-                  }
-        
-        address_2 = getattr(shipping_address,'address2', None)
-        if address_2:
-            kwargs.update({'shipping_address2':address_2})
-        
-        order.set_shipping_address(**kwargs)
-        
-        kwargs = {
-                  'billing_address':billing_address.address,
-                  'billing_city':billing_address.city,
-                  'billing_zip_code':billing_address.zip_code,
-                  'billing_state':billing_address.state,
-                  'billing_country':billing_address.country,
-                  'billing_name':billing_address.name,
-                  }
-        # If there is a second address line, set it
-        address_2 = getattr(billing_address, 'address2', None)
-        if address_2:
-            kwargs.update({'billing_address2':billing_address.address2})
 
-        order.set_billing_address(**kwargs)
+        order.set_shipping_address(shipping_address)
+        order.set_billing_address(billing_address)
+        
         order.save()
 
     def post(self, *args, **kwargs):

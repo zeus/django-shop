@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ImproperlyConfigured
 from django.test.testcases import TestCase
 from shop.backends_pool import backends_pool
-from shop.models.ordermodel import Order
+from shop.util.order import OrderModel as Order
 from shop.shipping.api import ShippingAPI
 from shop.tests.utils.context_managers import SettingsOverride
 from shop.tests.util import Mock
