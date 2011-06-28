@@ -2,6 +2,7 @@
 from django.contrib import admin
 from django.contrib.admin.options import ModelAdmin
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 
 from shop.models.ordermodel import (Order, OrderItem,
         OrderExtraInfo, ExtraOrderPriceField, OrderPayment)
@@ -48,5 +49,7 @@ class OrderAdmin(ModelAdmin):
                 }),
             )
 
-
-admin.site.register(Order, OrderAdmin)
+# We should register OrderAdmin if, and only in we have no custom order model
+ORDER_MODEL = getattr(settings, 'SHOP_ORDER_MODEL', None)
+if not ORDER_MODEL:
+    admin.site.register(Order, OrderAdmin)
