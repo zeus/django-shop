@@ -1,3 +1,17 @@
+Version 0.0.10
+==============
+
+* Tests for the shop are now runnable from any project
+
+Version 0.0.9
+=============
+
+* Changed the base class for Cart Modifiers. Methods are now expected to return
+  a tuple, and not direectly append it to the extra_price_fields. Computation of
+  the total is not done using an intermediate "current_total" attribute.
+* Added a SHOP_FORCE_LOGIN setting that restricts the checkout process to
+  loged-in users.
+
 Version 0.0.8
 =============
 

@@ -12,7 +12,14 @@ from shop.models.productmodel import Product
 from shop.tests.util import Mock
 from shop.tests.utils.context_managers import SettingsOverride
 from shop.util.order import get_order_from_request, add_order_to_request
-from project.models import BaseProduct, ProductVariation
+
+# This try except is there to let people run the tests from any project
+# Not only from the provided "test" project.
+SKIP_BASEPRODUCT_TEST = False
+try:
+    from project.models import BaseProduct, ProductVariation
+except:
+    SKIP_BASEPRODUCT_TEST = True
 
 
 class OrderUtilTestCase(TestCase):
@@ -251,6 +258,8 @@ class OrderConversionTestCase(TestCase):
         self.assertEqual(o.billing_address_text, self.address2.as_text())
         
     def test_create_order_respects_product_specific_get_price_method(self):
+        if SKIP_BASEPRODUCT_TEST:
+            return
         baseproduct = BaseProduct.objects.create(unit_price=Decimal('10.0'))
         product = ProductVariation.objects.create(baseproduct=baseproduct)
 
